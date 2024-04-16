@@ -1,29 +1,42 @@
+ //waits for document to be fully loaded and parsed
 document.addEventListener('DOMContentLoaded', function(){
+
+//assigning ids to their declared variables
     const taskInputEl = document.getElementById('taskInput');
     const addTaskBtnEl = document.getElementById('addTask-btn');
     const taskListEl = document.getElementById('taskList');
     const dateEl = document.getElementById('date');
 
+//initializing an empty array to store the tasks
     let taskList = []; 
-    addTaskBtnEl.addEventListener('click' , function(){
+    addTaskBtnEl.addEventListener('click' , function() {
+        //anonymous function executed when button is clicked
         let taskInputValue = taskInputEl.value.trim();
         let dateInputValue = dateEl.value.trim();    
         if (taskInputValue !== ' '){
-           taskList.push({ task: taskInputValue, date: dateInputValue ,status:false});
+            //creates objects to push into tasklist array
+           taskList.push({ task: taskInputValue, date: dateInputValue, status: false });
            displayList();
         }
     })
-    function displayList(){
-        for(let i = 0; i < taskList.length ; i++){
-          console.log(`${ i + 1 }. ${taskList[i]}`)
-          const newTask = document.createElement('li');
-          newTask.textContent = `${ i + 1 }. ${taskList[i].task} ${taskList[i].date}` ; 
-          taskListEl.appendChild(newTask);
-        }
-       
+
+
+    function displayList() {
+        //clear previous items
+        taskListEl.innerHTML = '';
+
+        //looop through task list and create HTML elements
+        taskList.forEach(function(task) {
+        const taskitem = document.createElement('li');
+        taskitem.textContent = `Task: ${task.task}, Date: ${task.date}, Status: ${task.status}`;
+        taskListEl.appendChild(taskitem);
+        });
+        
     }
    
 }) ; 
+
+
 
 
 
